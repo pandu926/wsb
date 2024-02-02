@@ -1,6 +1,16 @@
+"use client";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
-export default function Page() {
+const LoadingPage = () => {
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <h1>created by Ahmad Pandu Subekti</h1>
+    </div>
+  );
+};
+
+const MainPage = () => {
   return (
     <div className="relative overflow-hidden h-screen">
       {/* Background Image */}
@@ -26,4 +36,19 @@ export default function Page() {
       </div>
     </div>
   );
-}
+};
+
+const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulasi beban data atau inisialisasi
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000); // Ubah sesuai dengan kebutuhan Anda
+  }, []);
+
+  return <div>{isLoading ? <LoadingPage /> : <MainPage />}</div>;
+};
+
+export default App;
