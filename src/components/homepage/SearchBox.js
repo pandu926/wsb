@@ -48,9 +48,12 @@ export default function SearchBox() {
         </div>
         <div className={`${keyword ? "hidden" : "block"} mt-10`}>atau</div>
         <div className={`${keyword ? "hidden" : "block"} mt-10`}>
-          <button className="bg-green-600 text-white py-2 px-10 rounded-md font-bold">
+          <Link
+            href="/dashboard"
+            className="bg-green-600 text-white py-2 px-10 rounded-md font-bold"
+          >
             Dashboard wisata
-          </button>
+          </Link>
         </div>
         <div className={`${keyword ? "" : "hidden"} mt-10`}>
           <div className="pt-12">

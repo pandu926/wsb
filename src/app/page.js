@@ -27,7 +27,14 @@ const MainPage = () => {
           alt="background"
         />
       </div>
-
+      <div>
+        <button
+          onClick={handleClick}
+          className="relative z-10 flex flex-col items-center justify-center h-full"
+        >
+          close
+        </button>
+      </div>
       {/* Content */}
       <div
         className={`relative z-10 flex flex-col items-center justify-center h-full ${
