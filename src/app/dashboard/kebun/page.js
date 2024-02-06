@@ -1,7 +1,7 @@
 "use client";
 
 export default function page() {
-  const textArray = ["curug winong", "curug sikarim", "curug sinangka"];
+  const textArray = ["teh tanjungsari", "teh bedakah", "teh tambi"];
 
   return (
     <div>

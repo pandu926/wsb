@@ -30,7 +30,8 @@ export default function Rekomendasi() {
 
   return (
     <div className="  text-blue-900 mt-5 relative z-10 mb-10 capitalize">
-      <div className=" pl-10 text-lg  font-bold text-teal-500 pb-5">
+      <div className="mt-5 mb-10 mx-5 font-extrabold text-2xl">Wonosobo</div>
+      <div className=" text-center mb-10 text-base  font-extrabold text-teal-500 pb-5">
         rekomendasi wisata
       </div>
       <Slider {...settings}>
@@ -39,15 +40,12 @@ export default function Rekomendasi() {
             key={index}
             className="w-full  md:w-1/2 lg:w-2/5 mx-auto px-4 mb-8"
           >
-            <div className="relative h-72 rounded-3xl  group transition-transform duration-300 transform hover:scale-110">
-              <Image
-                src="/img/manuk.jpg"
-                width={250}
-                height={300}
-                className="rounded-3xl"
-              />
+            <div
+              style={{ backgroundImage: "url('/img/manuk.jpg')" }}
+              className="bg-cover  relative h-60 rounded-3xl  group transition-transform duration-300 transform hover:scale-110"
+            >
               <div className="hover:border-red-500  text-black  p-4 rounded-md text-center relative">
-                <h2 className="text-xl font-semibold mt-2">SeminarK</h2>
+                <h2 className="text-xl font-semibold mt-2"></h2>
               </div>
               {/* Progress Bar */}
             </div>

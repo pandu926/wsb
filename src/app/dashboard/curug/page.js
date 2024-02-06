@@ -1,5 +1,9 @@
 "use client";
-
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Image from "next/image";
+import Rekomendasi from "@/components/dashboard/Rekomendasi";
 export default function page() {
   const textArray = ["curug winong", "curug sikarim", "curug sinangka"];
 
