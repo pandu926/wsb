@@ -4,10 +4,29 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function Kategori() {
   const path = usePathname();
+  const [tag, setTag] = useState([]);
+  useEffect(() => {
+    dataSeminar();
+  }, []);
 
+  const dataSeminar = async () => {
+    axios
+      .get("http://localhost:8000/tag/list")
+      .then((response) => {
+        // Handle respons sukses (status kode 200 OK)
+        const data = response.data;
+        console.log(data);
+        setTag(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const textArray = [
     "gunung",
     "curug",
@@ -37,15 +56,17 @@ export default function Kategori() {
           Explore Wonosobo
         </div>
         <Slider {...settings}>
-          {textArray.map((text, index) => (
+          {tag.map((text, index) => (
             <div
               key={index}
               className={`w-2/5 px-4 mb-8 ${
-                path == `/dashboard/${text}` ? "text-teal-500 font-bold" : ""
+                path == `/dashboard/${text.nama}`
+                  ? "text-teal-500 font-bold"
+                  : ""
               }`}
             >
-              <Link id={text} href={`/dashboard/${text}`} key={index}>
-                {text}
+              <Link href={`/dashboard/${text.nama}`} key={index}>
+                {text.nama}
               </Link>
             </div>
           ))}

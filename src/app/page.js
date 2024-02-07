@@ -1,6 +1,7 @@
 "use client";
-import SearchBox from "@/components/homepage/SearchBox";
+
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 
 const LoadingPage = () => {
@@ -12,10 +13,6 @@ const LoadingPage = () => {
 };
 
 const MainPage = () => {
-  const [toogle, setToogle] = useState(false);
-  const handleClick = () => {
-    setToogle(!toogle);
-  };
   return (
     <div className="relative overflow-hidden h-screen">
       {/* Background Image */}
@@ -27,34 +24,22 @@ const MainPage = () => {
           alt="background"
         />
       </div>
-      <div>
-        <button
-          onClick={handleClick}
-          className="relative z-10 flex flex-col items-center justify-center h-full"
-        >
-          close
-        </button>
-      </div>
+      <div></div>
       {/* Content */}
       <div
-        className={`relative z-10 flex flex-col items-center justify-center h-full ${
-          toogle ? "hidden" : "block"
-        }`}
+        className={`relative z-10 flex flex-col items-center justify-center h-full `}
       >
         <h1 className="text-xl font-extrabold mb-14 text-red-600">
           WONOSOBO SOUL OF JAVA
         </h1>
         <div className="mt-96">
-          <button
-            onClick={handleClick}
+          <Link
+            href="/dashboard"
             className="bg-white text-green-600 py-2 px-20 rounded-md font-bold"
           >
             Explore
-          </button>
+          </Link>
         </div>
-      </div>
-      <div className={`${toogle ? "block" : "hidden"}`}>
-        <SearchBox />
       </div>
     </div>
   );

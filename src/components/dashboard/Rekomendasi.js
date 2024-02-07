@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Rekomendasi() {
   const settings = {
@@ -30,13 +31,19 @@ export default function Rekomendasi() {
 
   return (
     <div className="  text-blue-900 mt-5 relative z-10 mb-10 capitalize">
-      <div className="mt-5 mb-10 mx-5 font-extrabold text-2xl">Wonosobo</div>
+      <div className="mt-5 mb-10  font-extrabold text-2xl flex justify-between">
+        <div className="w-4/5 pl-10">Wonosobo</div>
+        <div className="w-1/5 justify-end">
+          <Image src="/img/search.svg" width={30} height={30} />
+        </div>
+      </div>
       <div className=" text-center mb-10 text-base  font-extrabold text-teal-500 pb-5">
         rekomendasi wisata
       </div>
       <Slider {...settings}>
         {[...Array(5)].map((_, index) => (
-          <div
+          <Link
+            href="/wisata"
             key={index}
             className="w-full  md:w-1/2 lg:w-2/5 mx-auto px-4 mb-8"
           >
@@ -49,7 +56,7 @@ export default function Rekomendasi() {
               </div>
               {/* Progress Bar */}
             </div>
-          </div>
+          </Link>
         ))}
       </Slider>
     </div>
