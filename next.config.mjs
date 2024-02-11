@@ -6,6 +6,9 @@ const withPWA = withPWAInit({
     register: true,
     scope: "/app",
     sw: "service-worker.js",
+    fallbacks: {
+        image: "/img/bg.svg",
+    }
 
 });
 

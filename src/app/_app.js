@@ -6,8 +6,11 @@ export default function App({ Component, pageProps }) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>My awesome PWA app</title>
-        <meta name="description" content="Best PWA app in the world!" />
+        <title>Wonosoboku</title>
+        <meta
+          name="description"
+          content="Website pencarian Wisata di kabupaten wonosobo"
+        />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="mask-icon" href="/icons/mask-icon.svg" color="#FFFFFF" />
         <meta name="theme-color" content="#ffffff" />
@@ -19,12 +22,18 @@ export default function App({ Component, pageProps }) {
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:url" content="https://yourdomain.com" />
         <meta name="twitter:title" content="My awesome PWA app" />
-        <meta name="twitter:description" content="Best PWA app in the world!" />
+        <meta
+          name="twitter:description"
+          content="Website pencarian Wisata di kabupaten wonosobo"
+        />
         <meta name="twitter:image" content="/icons/twitter.png" />
         <meta name="twitter:creator" content="@DavidWShadow" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="My awesome PWA app" />
-        <meta property="og:description" content="Best PWA app in the world!" />
+        <meta property="og:title" content="wonosoboku" />
+        <meta
+          property="og:description"
+          content="Website pencarian Wisata di kabupaten wonosobo"
+        />
         <meta property="og:site_name" content="My awesome PWA app" />
         <meta property="og:url" content="https://yourdomain.com" />
         <meta property="og:image" content="/icons/og.png" />

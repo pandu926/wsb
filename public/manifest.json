@@ -1,7 +1,12 @@
 {
-  "name": "My awesome PWA app",
-  "short_name": "PWA App",
+  "name": "Wonosobo Wisata",
+  "short_name": "Wsb wisata",
   "icons": [
+    {
+      "src": "/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
     {
       "src": "/icon-192x192.png",
       "sizes": "192x192",
@@ -23,6 +28,7 @@
       "type": "image/png"
     }
   ],
+
   "theme_color": "#FFFFFF",
   "background_color": "#FFFFFF",
   "start_url": "/",
