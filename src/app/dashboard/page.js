@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function page() {
   const textArray = ["curug winong", "curug sikarim", "curug sinangka"];
 
@@ -7,7 +9,8 @@ export default function page() {
     <div>
       <div className=" flex flex-wrap justify-center items-center capitalize ">
         {textArray.map((text, index) => (
-          <div
+          <Link
+            href={`/wisata/${index}`}
             key={index}
             className="w-2/5 mt-5 h-52 mx-3 rounded-2xl bg-center bg-cover"
             style={{ backgroundImage: "url('/img/manuk.jpg')" }}
@@ -17,7 +20,7 @@ export default function page() {
                 {text}
               </h1>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

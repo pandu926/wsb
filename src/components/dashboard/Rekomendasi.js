@@ -55,7 +55,7 @@ export default function Rekomendasi() {
         <Slider {...settings}>
           {[...Array(5)].map((_, index) => (
             <Link
-              href="/wisata"
+              href={`/wisata/${index}`}
               key={index}
               className="w-full  md:w-1/2 lg:w-2/5 mx-auto px-4 mb-8"
             >
