@@ -42,14 +42,14 @@ export default function Rekomendasi() {
 
   return (
     <>
-      <div className="  text-blue-900 mt-5 relative z-10 mb-10 capitalize">
-        <div className="mt-5 mb-10  font-extrabold text-2xl flex justify-between">
-          <div className="w-4/5 pl-10">Wonosobo</div>
-          <div onClick={toogleSearch} className="w-1/5 justify-end">
+      <div className="relative z-10 mt-5 mb-10 text-blue-900 capitalize">
+        <div className="flex justify-between px-10 mt-5 mb-10 text-2xl font-extrabold">
+          <h1>Wonosobo</h1>
+          <button onClick={toogleSearch}>
             <Image src="/img/search.svg" width={30} height={30} />
-          </div>
+          </button>
         </div>
-        <div className=" text-center mb-10 text-base  font-extrabold text-teal-500 pb-5">
+        <div className="pb-5 mb-10 text-base font-extrabold text-center text-teal-500 ">
           rekomendasi wisata
         </div>
         <Slider {...settings}>
@@ -57,14 +57,14 @@ export default function Rekomendasi() {
             <Link
               href={`/wisata/${index}`}
               key={index}
-              className="w-full  md:w-1/2 lg:w-2/5 mx-auto px-4 mb-8"
+              className="w-full px-4 mx-auto mb-8 overflow-hidden md:w-1/2 lg:w-2/5"
             >
               <div
                 style={{ backgroundImage: "url('/img/manuk.jpg')" }}
-                className="bg-cover  relative h-60 rounded-3xl  group transition-transform duration-300 transform hover:scale-110"
+                className="relative transition-transform duration-300 transform bg-cover h-60 rounded-3xl group hover:scale-110"
               >
-                <div className="hover:border-red-500  text-black  p-4 rounded-md text-center relative">
-                  <h2 className="text-xl font-semibold mt-2"></h2>
+                <div className="relative p-4 text-center text-black rounded-md hover:border-red-500">
+                  <h2 className="mt-2 text-xl font-semibold"></h2>
                 </div>
               </div>
             </Link>

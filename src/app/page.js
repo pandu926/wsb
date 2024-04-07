@@ -14,7 +14,7 @@ const LoadingPage = () => {
 
 const MainPage = () => {
   return (
-    <div className="relative overflow-hidden h-screen">
+    <div className="relative h-screen overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -24,18 +24,17 @@ const MainPage = () => {
           alt="background"
         />
       </div>
-      <div></div>
       {/* Content */}
       <div
         className={`relative z-10 flex flex-col items-center justify-center h-full `}
       >
-        <h1 className="text-xl font-extrabold mb-14 text-red-600">
+        <h1 className="text-xl font-extrabold text-red-600 mb-14">
           WONOSOBO SOUL OF JAVA
         </h1>
         <div className="mt-96">
           <Link
             href="/dashboard"
-            className="bg-white text-green-600 py-2 px-20 rounded-md font-bold"
+            className="px-20 py-2 font-bold text-green-600 bg-white rounded-md"
           >
             Explore
           </Link>
