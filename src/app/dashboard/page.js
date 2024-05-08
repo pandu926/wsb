@@ -33,7 +33,9 @@ export default function page() {
             href={`/wisata/${text.id}`}
             key={text.id}
             className="w-2/5 mx-3 mt-5 bg-center bg-cover h-52 rounded-2xl"
-            style={{ backgroundImage: "url('https://pandusubekti.tech')" }}
+            style={{
+              backgroundImage: `url('https://pandusubekti.tech/upload/${text.gambar.gambar1}')`,
+            }}
           >
             <div className="items-center justify-center w-4/5 mx-auto mt-40 text-center text-black bg-white rounded-lg h-7">
               <h1 style={{ fontSize: 10 }} className="pt-1 font-bold ">
