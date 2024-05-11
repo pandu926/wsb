@@ -38,7 +38,7 @@ export default function SearchBox() {
 
   return (
     <div>
-      <div className="mx-5 mt-10 flex border-b-2 border-green-500 ">
+      <div className="flex mx-5 mt-10 border-b-2 border-green-500 ">
         <div className="pr-4">
           <Image src="/img/back.svg" width={20} height={20} />
         </div>
@@ -50,7 +50,7 @@ export default function SearchBox() {
           placeholder="masukkan kata kunci"
         />
       </div>
-      <div className="mx-5 pt-5  font-bold">
+      <div className="pt-5 mx-5 font-bold">
         {filteredData.map((item, index) => (
           <Link href={`/wisata/${item.id}`} key={item.id} className="flex">
             <p className="pr-5">{index}</p>
