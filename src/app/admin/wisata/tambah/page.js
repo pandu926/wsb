@@ -4,33 +4,62 @@ import Input from "@/components/admin/Input";
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import FileInput from "@/components/admin/FileInput";
+import getCookie from "@/utils/cookies";
 
 export default function page() {
   const router = useRouter();
   const [nama, setNama] = useState("");
-  const [tiket, setTiket] = useState("");
+  const [tiket, setTiket] = useState();
   const [tentang, setTentang] = useState("");
   const [alamat, setAlamat] = useState("");
   const [link, setLink] = useState("");
 
-  // Fungsi untuk mendapatkan nilai cookie berdasarkan nama
-  function getCookie(cookieName) {
-    const cookieString = document.cookie; // Mendapatkan string cookie
-    const cookies = cookieString.split(";"); // Memisahkan string cookie menjadi array
+  const [gambar1, setGambar1] = useState(null);
+  const [gambar2, setGambar2] = useState(null);
+  const [gambar3, setGambar3] = useState(null);
+  const [gambar4, setGambar4] = useState(null);
 
-    // Iterasi melalui setiap cookie
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim(); // Menghilangkan spasi di awal dan akhir cookie
-      const [name, value] = cookie.split("="); // Memisahkan nama dan nilai cookie
+  const handleImageChange = (e, setter) => {
+    const file = e.target.files[0];
+    setter(file);
+  };
 
-      // Jika nama cookie cocok dengan yang dicari, kembalikan nilainya
-      if (name === cookieName) {
-        return decodeURIComponent(value); // Decode nilai cookie (jika perlu)
-      }
+  const saveImage = async (id_wisata) => {
+    // Mengambil access_token dari cookie
+    const accessToken = getCookie("access_token");
+
+    if (!accessToken) {
+      console.error("Access Token not found in cookie");
+      return;
     }
+    console.log(`bearer ${accessToken}`);
+    // Set header untuk request dengan token
+    const headers = {
+      Authorization: `bearer ${accessToken}`,
+      "Content-Type": "multipart/form-data",
+    };
 
-    return null; // Mengembalikan null jika cookie tidak ditemukan
-  }
+    try {
+      // Melakukan POST request dengan data wisata dan token
+      const response = await axios.post(
+        "https://pandusubekti.tech/gambar/add",
+        {
+          id_wisata,
+          gambar1,
+          gambar2,
+          gambar3,
+          gambar4,
+        },
+        { headers }
+      );
+
+      console.log(response.data);
+      router.push("/admin/wisata");
+    } catch (error) {
+      console.error("Error adding data:", error); // Tangani error jika request gagal
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,7 +92,7 @@ export default function page() {
       );
 
       console.log(response.data);
-      router.push("/admin/wisata");
+      saveImage(response.data.id);
     } catch (error) {
       console.error("Error adding data:", error); // Tangani error jika request gagal
     }
@@ -100,6 +129,29 @@ export default function page() {
           id="link"
           value={(e) => setLink(e.target.value)}
         />
+
+        {/* Input untuk mengunggah gambar */}
+        <FileInput
+          id="gambar1"
+          label="Gambar 1"
+          onChange={(e) => handleImageChange(e, setGambar1)}
+        />
+        <FileInput
+          id="gambar2"
+          label="Gambar 2"
+          onChange={(e) => handleImageChange(e, setGambar2)}
+        />
+        <FileInput
+          id="gambar3"
+          label="Gambar 3"
+          onChange={(e) => handleImageChange(e, setGambar3)}
+        />
+        <FileInput
+          id="gambar4"
+          label="Gambar 4"
+          onChange={(e) => handleImageChange(e, setGambar4)}
+        />
+
         <div className="flex justify-center mt-10">
           <button
             className="pt-2 pb-2 pl-4 pr-4 text-white bg-teal-500 rounded-md "

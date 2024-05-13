@@ -34,7 +34,9 @@ export default function page() {
             key={text.id}
             className="w-2/5 mx-3 mt-5 bg-center bg-cover h-52 rounded-2xl"
             style={{
-              backgroundImage: `url('https://pandusubekti.tech/upload/${text.gambar.gambar1}')`,
+              backgroundImage: text.gambar
+                ? `url('https://pandusubekti.tech/upload/${text.gambar.gambar1}')`
+                : "url('/img/no-image.png", // Mengatur background menjadi none jika gambar tidak tersedia
             }}
           >
             <div className="items-center justify-center w-4/5 mx-auto mt-40 text-center text-black bg-white rounded-lg h-7">
