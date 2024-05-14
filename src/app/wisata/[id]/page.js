@@ -27,7 +27,7 @@ export default function page() {
   };
 
   return (
-    <div>
+    <div className="capitalize">
       <div
         className="w-full bg-cover rounded-b-3xl h-80 "
         style={{

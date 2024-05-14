@@ -50,10 +50,12 @@ export default function Kategori() {
           <div
             key={index}
             className={`w-2/5 px-4 mb-8  ${
-              path == `/dashboard/${text.nama}` ? "text-teal-500 font-bold" : ""
+              path == `/dashboard?kategori=${text.nama}`
+                ? "text-teal-500 font-bold"
+                : ""
             }`}
           >
-            <Link href={`/dashboard/${text.nama}`} key={index}>
+            <Link href={`/dashboard?kategori=${text.nama}`} key={index}>
               {text.nama}
             </Link>
           </div>

@@ -14,6 +14,8 @@ export default function page() {
   const [tentang, setTentang] = useState("");
   const [alamat, setAlamat] = useState("");
   const [link, setLink] = useState("");
+  const [msg, setMsg] = useState("");
+  const [toggle, setToggle] = useState(false);
 
   const [gambar1, setGambar1] = useState(null);
   const [gambar2, setGambar2] = useState(null);
@@ -55,8 +57,10 @@ export default function page() {
       );
 
       console.log(response.data);
+      setMsg("data gambar berhasil ditambahkan");
       router.push("/admin/wisata");
     } catch (error) {
+      setMsg("error");
       console.error("Error adding data:", error); // Tangani error jika request gagal
     }
   };
@@ -91,9 +95,10 @@ export default function page() {
         { headers }
       );
 
-      console.log(response.data);
+      setMsg("data gambar berhasil ditambahkan");
       saveImage(response.data.id);
     } catch (error) {
+      setMsg("error");
       console.error("Error adding data:", error); // Tangani error jika request gagal
     }
   };
@@ -103,6 +108,9 @@ export default function page() {
       <h1 className="mt-5 text-xl font-bold text-center text-teal-500 capitalize">
         tambah objek wisata
       </h1>
+      <div className={`flex justify-center mt-5   ${msg ? "" : "hidden"} `}>
+        <h1 className="text-blue-500 capitalize "> data telah di tambahkan</h1>
+      </div>
       <form onSubmit={handleSubmit}>
         <Input
           label="nama wisata"
