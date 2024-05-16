@@ -2,10 +2,11 @@
 
 import Input from "@/components/admin/Input";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import FileInput from "@/components/admin/FileInput";
 import getCookie from "@/utils/cookies";
+import Dropdown from "@/components/admin/DropdownKategori";
 
 export default function page() {
   const router = useRouter();
@@ -15,7 +16,9 @@ export default function page() {
   const [alamat, setAlamat] = useState("");
   const [link, setLink] = useState("");
   const [msg, setMsg] = useState("");
-  const [toggle, setToggle] = useState(false);
+
+  const [kategori, setKategori] = useState();
+  const [datakategori, setDatakategori] = useState([]);
 
   const [gambar1, setGambar1] = useState(null);
   const [gambar2, setGambar2] = useState(null);
@@ -25,6 +28,54 @@ export default function page() {
   const handleImageChange = (e, setter) => {
     const file = e.target.files[0];
     setter(file);
+  };
+
+  useEffect(() => {
+    getDataKategori();
+  }, []);
+
+  const getDataKategori = async () => {
+    axios
+      .get("https://pandusubekti.tech/tag/list")
+      .then((response) => {
+        setDatakategori(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const saveKategori = async (id_wisata, id_tag) => {
+    const accessToken = getCookie("access_token");
+
+    if (!accessToken) {
+      console.error("Access Token not found in cookie");
+      return;
+    }
+    console.log(`bearer ${accessToken}`);
+    // Set header untuk request dengan token
+    const headers = {
+      Authorization: `bearer ${accessToken}`,
+    };
+
+    try {
+      // Melakukan POST request dengan data wisata dan token
+      const response = await axios.post(
+        "https://pandusubekti.tech/tagpivot/add",
+        {
+          id_wisata,
+          id_tag,
+        },
+        { headers }
+      );
+
+      console.log(response.data);
+      setMsg("data gambar berhasil ditambahkan");
+      router.push("/admin/wisata");
+    } catch (error) {
+      setMsg("error");
+      console.error("Error adding data:", error); // Tangani error jika request gagal
+    }
   };
 
   const saveImage = async (id_wisata) => {
@@ -57,8 +108,9 @@ export default function page() {
       );
 
       console.log(response.data);
+      const id_tag = response.data.id;
       setMsg("data gambar berhasil ditambahkan");
-      router.push("/admin/wisata");
+      saveKategori(id_wisata, id_tag);
     } catch (error) {
       setMsg("error");
       console.error("Error adding data:", error); // Tangani error jika request gagal
@@ -102,6 +154,8 @@ export default function page() {
       console.error("Error adding data:", error); // Tangani error jika request gagal
     }
   };
+
+  console.log(kategori);
 
   return (
     <div>
@@ -160,6 +214,11 @@ export default function page() {
           onChange={(e) => handleImageChange(e, setGambar4)}
         />
 
+        <Dropdown
+          label="Kategori"
+          options={datakategori}
+          onChange={(value) => setKategori(value)}
+        />
         <div className="flex justify-center mt-10">
           <button
             className="pt-2 pb-2 pl-4 pr-4 text-white bg-teal-500 rounded-md "
