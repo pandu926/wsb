@@ -10,13 +10,13 @@ export default function SearchBox() {
     getData();
   }, []);
 
-  const [keyword, setKeyword] = useState("a");
+  const [keyword, setKeyword] = useState("");
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
 
   const getData = async () => {
     axios
-      .get("https://653beb34d5d6790f5ec7a438.mockapi.io/wisata")
+      .get("https://pandusubekti.tech/wisata/list")
       .then((response) => {
         setData(response.data);
       })
@@ -27,8 +27,8 @@ export default function SearchBox() {
 
   useEffect(() => {
     const filtered = data.filter((item) => {
-      if (typeof item.name === "string") {
-        return item.name.toLowerCase().includes(keyword.toLowerCase());
+      if (typeof item.nama === "string") {
+        return item.nama.toLowerCase().includes(keyword.toLowerCase());
       }
       return false;
     });
@@ -53,8 +53,8 @@ export default function SearchBox() {
       <div className="pt-5 mx-5 font-bold">
         {filteredData.map((item, index) => (
           <Link href={`/wisata/${item.id}`} key={item.id} className="flex">
-            <p className="pr-5">{index}</p>
-            <p>{item.name}</p>
+            <p className="pr-5">{index + 1}</p>
+            <p>{item.nama}</p>
           </Link>
         ))}
       </div>

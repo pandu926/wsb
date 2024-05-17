@@ -118,7 +118,7 @@ export default function Page() {
               {openItemId === item.id && (
                 <div className="absolute top-0 right-0 z-10 p-2 mt-10 bg-black shadow-md">
                   <ul>
-                    <li onClick={() => handleEdit(item.id)}>Edit</li>
+                    <li onClick={() => handleEdit(item.id)}> Edit</li>
                     <li onClick={() => handleDelete(item.id)}>Delete</li>
                     <li onClick={() => handleTambahGambar(item.id)}>
                       Tambahkan Gambar
