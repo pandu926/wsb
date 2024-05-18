@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
 
-export default function Kategori() {
+function Kategori() {
   const router = useSearchParams();
   const queryParam = router.get("kategori");
 
@@ -151,5 +151,13 @@ export default function Kategori() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function page() {
+  return (
+    <Suspense>
+      <Kategori />
+    </Suspense>
   );
 }
