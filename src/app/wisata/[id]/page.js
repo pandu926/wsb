@@ -17,7 +17,7 @@ export default function page() {
 
   const getData = async () => {
     axios
-      .get(`https://pandusubekti.tech/wisata/list?id=${id}`)
+      .get(`https://pandusubekti.tech/wsb1/wisata/list?id=${id}`)
       .then((response) => {
         setData(response.data[0]);
       })
@@ -31,7 +31,7 @@ export default function page() {
       <div
         className="w-full bg-cover rounded-b-3xl h-80 "
         style={{
-          backgroundImage: `url('https://pandusubekti.tech/upload/${data.gambar?.gambar1}')`,
+          backgroundImage: `url('https://pandusubekti.tech/wsb1/upload/${data.gambar?.gambar1}')`,
         }}
       >
         <Link href="/dashboard">

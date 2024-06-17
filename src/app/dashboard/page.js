@@ -45,7 +45,7 @@ function Kategori() {
 
   const dataWisata = async () => {
     axios
-      .get("https://pandusubekti.tech/wisata/list")
+      .get("https://pandusubekti.tech/wsb1/wisata/list")
       .then((response) => {
         // Handle respons sukses (status kode 200 OK)
         const data = response.data;
@@ -58,7 +58,9 @@ function Kategori() {
   };
   const fetchDataKategori = async () => {
     try {
-      const response = await axios.get("https://pandusubekti.tech/tag/list");
+      const response = await axios.get(
+        "https://pandusubekti.tech/wsb1/tag/list"
+      );
       setKategori(response.data);
     } catch (error) {
       console.error(error);
@@ -68,7 +70,7 @@ function Kategori() {
   const fetchDataWisataKategori = async () => {
     try {
       const response = await axios.get(
-        "https://pandusubekti.tech/tagpivot/list"
+        "https://pandusubekti.tech/wsb1/tagpivot/list"
       );
       setData(response.data);
     } catch (error) {
@@ -112,7 +114,7 @@ function Kategori() {
             className="w-2/5 mx-3 mt-5 bg-center bg-cover h-52 rounded-2xl"
             style={{
               backgroundImage: text.wisata.gambar_background
-                ? `url('https://pandusubekti.tech/upload/${text.wisata.gambar_background}')`
+                ? `url('https://pandusubekti.tech/wsb1/upload/${text.wisata.gambar_background}')`
                 : "url('/img/no-image.png", // Mengatur background menjadi none jika gambar tidak tersedia
             }}
           >
@@ -137,7 +139,7 @@ function Kategori() {
               className="w-2/5 mx-3 mt-5 bg-center bg-cover h-52 rounded-2xl"
               style={{
                 backgroundImage: text.gambar
-                  ? `url('https://pandusubekti.tech/upload/${text.gambar_background}')`
+                  ? `url('https://pandusubekti.tech/wsb1/upload/${text.gambar_background}')`
                   : "url('/img/no-image.png", // Mengatur background menjadi none jika gambar tidak tersedia
               }}
             >

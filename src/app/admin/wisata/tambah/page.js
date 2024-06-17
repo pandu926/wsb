@@ -15,6 +15,7 @@ export default function page() {
   const [tentang, setTentang] = useState("");
   const [alamat, setAlamat] = useState("");
   const [link, setLink] = useState("");
+  const [gmbr, setGmbr] = useState("");
   const [msg, setMsg] = useState("");
 
   const [kategori, setKategori] = useState();
@@ -36,7 +37,7 @@ export default function page() {
 
   const getDataKategori = async () => {
     axios
-      .get("https://pandusubekti.tech/tag/list")
+      .get("https://pandusubekti.tech/wsb1/wsb1/tag/list")
       .then((response) => {
         setDatakategori(response.data);
       })
@@ -61,7 +62,7 @@ export default function page() {
     try {
       // Melakukan POST request dengan data wisata dan token
       const response = await axios.post(
-        "https://pandusubekti.tech/tagpivot/add",
+        "https://pandusubekti.tech/wsb1/tagpivot/add",
         {
           id_wisata,
           id_tag,
@@ -96,7 +97,7 @@ export default function page() {
     try {
       // Melakukan POST request dengan data wisata dan token
       const response = await axios.post(
-        "https://pandusubekti.tech/gambar/add",
+        "https://pandusubekti.tech/wsb1/gambar/add",
         {
           id_wisata,
           gambar1,
@@ -119,6 +120,7 @@ export default function page() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const gambar_background = gmbr;
 
     // Mengambil access_token dari cookie
     const accessToken = getCookie("access_token");
@@ -136,13 +138,14 @@ export default function page() {
     try {
       // Melakukan POST request dengan data wisata dan token
       const response = await axios.post(
-        "https://pandusubekti.tech/wisata/add",
+        "https://pandusubekti.tech/wsb1/wisata/add",
         {
           nama,
           tentang,
           tiket,
           alamat,
           link,
+          gambar_background,
         },
         { headers }
       );
@@ -190,6 +193,11 @@ export default function page() {
           label="link gmaps"
           id="link"
           value={(e) => setLink(e.target.value)}
+        />
+        <Input
+          label="gambar background"
+          id="gmbr"
+          value={(e) => setGmbr(e.target.value)}
         />
 
         {/* Input untuk mengunggah gambar */}

@@ -23,7 +23,7 @@ export default function EditWisata() {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `https://pandusubekti.tech/wisata/list?id=${id}`
+        `https://pandusubekti.tech/wsb1/wisata/list?id=${id}`
       );
       setData({
         nama: response.data[0].nama || "",
@@ -50,9 +50,13 @@ export default function EditWisata() {
       Authorization: `bearer ${accessToken}`,
     };
     try {
-      await axios.put(`https://pandusubekti.tech/wisata/update/${id}`, data, {
-        headers,
-      });
+      await axios.put(
+        `https://pandusubekti.tech/wsb1/wisata/update/${id}`,
+        data,
+        {
+          headers,
+        }
+      );
       alert("Data updated successfully!");
     } catch (err) {
       console.log(err);

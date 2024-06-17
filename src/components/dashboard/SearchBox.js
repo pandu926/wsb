@@ -16,7 +16,7 @@ export default function SearchBox() {
 
   const getData = async () => {
     axios
-      .get("https://pandusubekti.tech/wisata/list")
+      .get("https://pandusubekti.tech/wsb1/wisata/list")
       .then((response) => {
         setData(response.data);
       })
