@@ -37,7 +37,7 @@ export default function page() {
 
   const getDataKategori = async () => {
     axios
-      .get("https://pandusubekti.tech/wsb1/wsb1/tag/list")
+      .get("https://pandusubekti.tech/wsb1/tag/list")
       .then((response) => {
         setDatakategori(response.data);
       })

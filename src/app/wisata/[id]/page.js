@@ -14,24 +14,60 @@ export default function page() {
   const { id } = useParams();
 
   const [data, setData] = useState([]);
+  const [gambar, setGambar] = useState("");
 
   const getData = async () => {
     axios
       .get(`https://pandusubekti.tech/wsb1/wisata/list?id=${id}`)
       .then((response) => {
         setData(response.data[0]);
+        setGambar(response.data[0].gambar?.gambar1);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
+  const handleGambarClick = (gambarUrl) => {
+    setGambar(gambarUrl);
+  };
   return (
     <div className="capitalize">
+      <div className="absolute flex flex-col items-center justify-center w-16 pt-5 pb-5 transform -translate-y-1/2 bg-white rounded-lg right-7 top-52">
+        <div
+          className="w-12 h-10 mb-2 rounded-md"
+          style={{
+            backgroundImage: `url('https://pandusubekti.tech/wsb1/upload/${data.gambar?.gambar1}')`,
+          }}
+          onClick={() => handleGambarClick(data.gambar?.gambar1)}
+        ></div>
+        <div
+          className="w-12 h-10 mb-2 rounded-md"
+          style={{
+            backgroundImage: `url('https://pandusubekti.tech/wsb1/upload/${data.gambar?.gambar2}')`,
+          }}
+          onClick={() => handleGambarClick(data.gambar?.gambar2)}
+        ></div>
+        <div
+          className="w-12 h-10 mb-2 rounded-md"
+          style={{
+            backgroundImage: `url('https://pandusubekti.tech/wsb1/upload/${data.gambar?.gambar3}')`,
+          }}
+          onClick={() => handleGambarClick(data.gambar?.gambar3)}
+        ></div>
+        <div
+          className="w-12 h-10 mb-2 rounded-md"
+          style={{
+            backgroundImage: `url('https://pandusubekti.tech/wsb1/upload/${data.gambar?.gambar4}')`,
+          }}
+          onClick={() => handleGambarClick(data.gambar?.gambar4)}
+        ></div>
+      </div>
+
       <div
         className="w-full bg-cover rounded-b-3xl h-80 "
         style={{
-          backgroundImage: `url('https://pandusubekti.tech/wsb1/upload/${data.gambar?.gambar1}')`,
+          backgroundImage: `url('https://pandusubekti.tech/wsb1/upload/${gambar}')`,
         }}
       >
         <Link href="/dashboard">
