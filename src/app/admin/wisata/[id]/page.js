@@ -23,7 +23,7 @@ export default function EditWisata() {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `https://pandusubekti.tech/wsb1/wisata/list?id=${id}`
+        `${process.env.NEXT_PUBLIC_API_URL}wisata/list?id=${id}`
       );
       setData({
         nama: response.data[0].nama || "",
@@ -51,7 +51,7 @@ export default function EditWisata() {
     };
     try {
       await axios.put(
-        `https://pandusubekti.tech/wsb1/wisata/update/${id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}wisata/update/${id}`,
         data,
         {
           headers,

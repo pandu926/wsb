@@ -22,7 +22,7 @@ export default function Page() {
   const getDataWisata = async () => {
     try {
       const response = await axios.get(
-        "https://pandusubekti.tech/wsb1/wisata/list"
+        `${process.env.NEXT_PUBLIC_API_URL}wisata/list`
       );
       setData(response.data);
       setFilteredData(response.data);
@@ -50,7 +50,7 @@ export default function Page() {
       Authorization: `bearer ${accessToken}`,
     };
     axios
-      .delete(`https://pandusubekti.tech/wsb1/wisata/delete/${id}`, { headers })
+      .delete(`${process.env.NEXT_PUBLIC_API_URL}wisata/delete/${id}`, { headers })
       .then(() => {
         getDataWisata();
       })

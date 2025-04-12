@@ -1,5 +1,6 @@
 import { Activity, AreaChart, DollarSign, LogOut, Users } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function page() {
   return (
@@ -40,9 +41,9 @@ export default function page() {
         </div>
         {/* add content */}
         <div className="">
-          <button className="w-full p-4 my-2 font-bold bg-teal-100 border border-teal-400 rounded-md hover:bg-teal-50">
+          <Link href="/admin/wisata" className="w-full p-4 my-2 font-bold bg-teal-100 border border-teal-400 rounded-md hover:bg-teal-50">
             Atur Daftar Wisata
-          </button>
+          </Link>
           <button className="w-full p-4 my-2 font-bold bg-teal-100 border border-teal-400 rounded-md hover:bg-teal-50">
             Atur Daftar Kategori
           </button>

@@ -16,7 +16,7 @@ export default function SearchBox() {
 
   const getData = async () => {
     axios
-      .get("https://pandusubekti.tech/wsb1/wisata/list")
+      .get(`${process.env.NEXT_PUBLIC_API_URL}wisata/list`)
       .then((response) => {
         setData(response.data);
       })

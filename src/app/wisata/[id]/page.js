@@ -18,7 +18,7 @@ export default function page() {
 
   const getData = async () => {
     axios
-      .get(`https://pandusubekti.tech/wsb1/wisata/list?id=${id}`)
+      .get(`${process.env.NEXT_PUBLIC_API_URL}wisata/list?id=${id}`)
       .then((response) => {
         setData(response.data[0]);
         setGambar(response.data[0].gambar?.gambar1);
@@ -37,28 +37,28 @@ export default function page() {
         <div
           className="w-12 h-10 mb-2 rounded-md"
           style={{
-            backgroundImage: `url('https://pandusubekti.tech/wsb1/upload/${data.gambar?.gambar1}')`,
+            backgroundImage: `url('${process.env.NEXT_PUBLIC_API_URL}upload/${data.gambar?.gambar1}')`,
           }}
           onClick={() => handleGambarClick(data.gambar?.gambar1)}
         ></div>
         <div
           className="w-12 h-10 mb-2 rounded-md"
           style={{
-            backgroundImage: `url('https://pandusubekti.tech/wsb1/upload/${data.gambar?.gambar2}')`,
+            backgroundImage: `url('${process.env.NEXT_PUBLIC_API_URL}upload/${data.gambar?.gambar2}')`,
           }}
           onClick={() => handleGambarClick(data.gambar?.gambar2)}
         ></div>
         <div
           className="w-12 h-10 mb-2 rounded-md"
           style={{
-            backgroundImage: `url('https://pandusubekti.tech/wsb1/upload/${data.gambar?.gambar3}')`,
+            backgroundImage: `url('${process.env.NEXT_PUBLIC_API_URL}upload/${data.gambar?.gambar3}')`,
           }}
           onClick={() => handleGambarClick(data.gambar?.gambar3)}
         ></div>
         <div
           className="w-12 h-10 mb-2 rounded-md"
           style={{
-            backgroundImage: `url('https://pandusubekti.tech/wsb1/upload/${data.gambar?.gambar4}')`,
+            backgroundImage: `url('${process.env.NEXT_PUBLIC_API_URL}upload/${data.gambar?.gambar4}')`,
           }}
           onClick={() => handleGambarClick(data.gambar?.gambar4)}
         ></div>
@@ -67,7 +67,7 @@ export default function page() {
       <div
         className="w-full bg-cover rounded-b-3xl h-80 "
         style={{
-          backgroundImage: `url('https://pandusubekti.tech/wsb1/upload/${gambar}')`,
+          backgroundImage: `url('${process.env.NEXT_PUBLIC_API_URL}upload/${gambar}')`,
         }}
       >
         <Link href="/dashboard">

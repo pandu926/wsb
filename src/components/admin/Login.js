@@ -19,7 +19,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        "https://pandusubekti.tech/wsb1/admin/login",
+        `${process.env.NEXT_PUBLIC_API_URL}admin/login`,
         {
           username,
           password,

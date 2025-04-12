@@ -37,7 +37,7 @@ export default function page() {
 
   const getDataKategori = async () => {
     axios
-      .get("https://pandusubekti.tech/wsb1/tag/list")
+      .get(`${process.env.NEXT_PUBLIC_API_URL}tag/list`)
       .then((response) => {
         setDatakategori(response.data);
       })
@@ -62,7 +62,7 @@ export default function page() {
     try {
       // Melakukan POST request dengan data wisata dan token
       const response = await axios.post(
-        "https://pandusubekti.tech/wsb1/tagpivot/add",
+        `${process.env.NEXT_PUBLIC_API_URL}tagpivot/add`,
         {
           id_wisata,
           id_tag,
@@ -97,7 +97,7 @@ export default function page() {
     try {
       // Melakukan POST request dengan data wisata dan token
       const response = await axios.post(
-        "https://pandusubekti.tech/wsb1/gambar/add",
+        `${process.env.NEXT_PUBLIC_API_URL}gambar/add`,
         {
           id_wisata,
           gambar1,
@@ -138,7 +138,7 @@ export default function page() {
     try {
       // Melakukan POST request dengan data wisata dan token
       const response = await axios.post(
-        "https://pandusubekti.tech/wsb1/wisata/add",
+        `${process.env.NEXT_PUBLIC_API_URL}wisata/add`,
         {
           nama,
           tentang,
