@@ -144,7 +144,6 @@ export default function page() {
           tiket,
           alamat,
           link,
-          gambar_background,
         },
         { headers }
       );

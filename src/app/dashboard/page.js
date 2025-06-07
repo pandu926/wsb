@@ -113,8 +113,8 @@ function Kategori() {
             key={text.id}
             className="w-2/5 mx-3 mt-5 bg-center bg-cover h-52 rounded-2xl"
             style={{
-              backgroundImage: text.wisata.gambar_background
-                ? `url('${process.env.NEXT_PUBLIC_API_URL}upload/${text.wisata.gambar_background}')`
+              backgroundImage: text.wisata.gambar.gambar1
+                ? `url('${process.env.NEXT_PUBLIC_API_URL}upload/${text.wisata.gambar.gambar1}')`
                 : "url('/img/no-image.png", // Mengatur background menjadi none jika gambar tidak tersedia
             }}
           >

@@ -13,7 +13,6 @@ export default function EditWisata() {
     tiket: 0,
     alamat: "",
     link: "",
-    gambar_background: "",
   });
 
   useEffect(() => {
@@ -31,7 +30,6 @@ export default function EditWisata() {
         tiket: response.data[0].tiket || 0,
         alamat: response.data[0].alamat || "",
         link: response.data[0].link || "",
-        gambar_background: response.data[0].gambar_background || "",
       });
     } catch (err) {
       console.log(err);
@@ -113,15 +111,7 @@ export default function EditWisata() {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label>Gambar Background:</label>
-          <input
-            type="text"
-            name="gambar_background"
-            value={data.gambar_background}
-            onChange={handleChange}
-          />
-        </div>
+
         <button type="submit">Update</button>
       </form>
     </div>
