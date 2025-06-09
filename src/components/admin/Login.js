@@ -18,7 +18,6 @@ export default function Login() {
     setSuccessMessage(""); // Reset success message
 
     try {
-      console.log(`${process.env.NEXT_PUBLIC_API_URL}admin/login`);
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}admin/login`,
         {
@@ -31,7 +30,7 @@ export default function Login() {
       Cookies.set("access_token", data, { expires: 7 });
 
       setSuccessMessage("Login berhasil!"); // Set success message
-      router.push("/admin/wisata");
+      router.push("/admin/dashboard");
     } catch (error) {
       console.error("Login gagal:", error);
       setError("Login gagal. Silakan cek kembali username dan password Anda."); // Set error message

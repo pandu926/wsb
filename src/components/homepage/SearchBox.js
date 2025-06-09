@@ -34,23 +34,22 @@ export default function SearchBox() {
     setFilteredData(filtered);
   }, [data, keyword]);
 
-  console.log(filteredData);
   return (
     <div>
-      <div className="relative bg-white mt-72 h-screen font-bold capitalize text-lg rounded-3xl z-10 flex flex-col items-center justify-center ">
+      <div className="relative z-10 flex flex-col items-center justify-center h-screen text-lg font-bold capitalize bg-white mt-72 rounded-3xl ">
         <div className="-mt-96">
           <input
             type="text"
             onChange={(e) => setKeyword(e.target.value)}
             placeholder="Masukkan kata kunci"
-            className="border border-green-500 p-2 rounded-md outline-none"
+            className="p-2 border border-green-500 rounded-md outline-none"
           />
         </div>
         <div className={`${keyword ? "hidden" : "block"} mt-10`}>atau</div>
         <div className={`${keyword ? "hidden" : "block"} mt-10`}>
           <Link
             href="/dashboard"
-            className="bg-green-600 text-white py-2 px-10 rounded-md font-bold"
+            className="px-10 py-2 font-bold text-white bg-green-600 rounded-md"
           >
             Dashboard wisata
           </Link>

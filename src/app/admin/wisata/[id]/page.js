@@ -15,104 +15,107 @@ export default function EditWisata() {
     link: "",
   });
 
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+
   useEffect(() => {
-    getData();
+    if (id) fetchData();
   }, [id]);
 
-  const getData = async () => {
+  const fetchData = async () => {
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}wisata/list?id=${id}`
       );
+
+      const item = response.data[0] || {};
       setData({
-        nama: response.data[0].nama || "",
-        tentang: response.data[0].tentang || "",
-        tiket: response.data[0].tiket || 0,
-        alamat: response.data[0].alamat || "",
-        link: response.data[0].link || "",
+        nama: item.nama || "",
+        tentang: item.tentang || "",
+        tiket: item.tiket || 0,
+        alamat: item.alamat || "",
+        link: item.link || "",
       });
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
+      alert("Gagal memuat data.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setData({ ...data, [name]: value });
+    setData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
+
     const accessToken = getCookie("access_token");
-    const headers = {
-      Authorization: `bearer ${accessToken}`,
-    };
+
     try {
       await axios.put(
         `${process.env.NEXT_PUBLIC_API_URL}wisata/update/${id}`,
         data,
         {
-          headers,
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
         }
       );
-      alert("Data updated successfully!");
-    } catch (err) {
-      console.log(err);
-      alert("Failed to update data.");
+      alert("Data berhasil diperbarui!");
+    } catch (error) {
+      console.error("Update failed:", error);
+      alert("Gagal memperbarui data.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
+  if (loading) return <p className="p-4 text-gray-500">Memuat data...</p>;
+
   return (
-    <div>
-      <h1>Edit Wisata Detail {id}</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="max-w-2xl p-6 mx-auto mt-10 bg-white rounded shadow">
+      <h1 className="mb-6 text-2xl font-semibold">Edit Wisata #{id}</h1>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {["nama", "tentang", "alamat", "link"].map((field) => (
+          <div key={field}>
+            <label className="block mb-1 font-medium capitalize">
+              {field}:
+            </label>
+            <input
+              type="text"
+              name={field}
+              value={data[field]}
+              onChange={handleChange}
+              className="w-full p-2 border rounded"
+              required
+            />
+          </div>
+        ))}
+
         <div>
-          <label>Nama:</label>
-          <input
-            type="text"
-            name="nama"
-            value={data.nama}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Tentang:</label>
-          <input
-            type="text"
-            name="tentang"
-            value={data.tentang}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Tiket:</label>
+          <label className="block mb-1 font-medium">Tiket:</label>
           <input
             type="number"
             name="tiket"
             value={data.tiket}
             onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Alamat:</label>
-          <input
-            type="text"
-            name="alamat"
-            value={data.alamat}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Link:</label>
-          <input
-            type="text"
-            name="link"
-            value={data.link}
-            onChange={handleChange}
+            className="w-full p-2 border rounded"
+            min="0"
+            required
           />
         </div>
 
-        <button type="submit">Update</button>
+        <button
+          type="submit"
+          disabled={submitting}
+          className="w-full px-4 py-2 text-white transition bg-blue-600 rounded hover:bg-blue-700"
+        >
+          {submitting ? "Memperbarui..." : "Update Wisata"}
+        </button>
       </form>
     </div>
   );

@@ -32,25 +32,25 @@ export default function Page() {
   };
 
   const handleEdit = (id) => {
-    console.log(`Edit item with ID: ${id}`);
     // Implement your edit logic here, e.g., navigate to edit page
     // Example: Router.push(`/admin/wisata/${id}/edit`);
   };
 
   const handleDelete = (id) => {
-    console.log(`Delete item with ID: ${id}`);
     const accessToken = getCookie("access_token");
 
     if (!accessToken) {
       console.error("Access Token not found in cookie");
       return;
     }
-    console.log(`bearer ${accessToken}`);
+
     const headers = {
       Authorization: `bearer ${accessToken}`,
     };
     axios
-      .delete(`${process.env.NEXT_PUBLIC_API_URL}wisata/delete/${id}`, { headers })
+      .delete(`${process.env.NEXT_PUBLIC_API_URL}wisata/delete/${id}`, {
+        headers,
+      })
       .then(() => {
         getDataWisata();
       })
@@ -60,7 +60,6 @@ export default function Page() {
   };
 
   const handleTambahGambar = (id) => {
-    console.log(`Tambah gambar for item with ID: ${id}`);
     // Implement logic to add image for the item
   };
 

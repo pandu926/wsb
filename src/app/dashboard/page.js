@@ -13,20 +13,21 @@ function Kategori() {
 
   const [kategori, setKategori] = useState([]);
   const [keyword, setKeyword] = useState(null);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]); // data tagpivot
   const [filteredData, setFilteredData] = useState([]);
   const [wisata, setWisata] = useState([]);
 
   useEffect(() => {
     fetchDataKategori();
     fetchDataWisataKategori();
-    dataWisata();
+    fetchDataWisata();
   }, []);
 
+  // Set keyword berdasarkan query param kategori
   useEffect(() => {
     if (queryParam) {
-      const filteredKategori = kategori.filter((item) =>
-        item.nama.toLowerCase().includes(queryParam.toLowerCase())
+      const filteredKategori = kategori.filter(
+        (item) => item.nama.toLowerCase() === queryParam.toLowerCase()
       );
       setKeyword(filteredKategori.length > 0 ? filteredKategori[0].id : null);
     } else {
@@ -34,28 +35,33 @@ function Kategori() {
     }
   }, [kategori, queryParam]);
 
+  // Gabungkan data tagpivot dengan data wisata lengkap berdasarkan keyword filter
   useEffect(() => {
     if (keyword !== null) {
-      const filtered = data.filter((item) => item.id_tag === keyword);
-      setFilteredData(filtered);
+      const filteredTagpivot = data.filter((item) => item.id_tag === keyword);
+      const filteredWithWisata = filteredTagpivot.map((item) => ({
+        ...item,
+        wisata: wisata.find((w) => w.id === item.id_wisata) || null,
+      }));
+      setFilteredData(filteredWithWisata);
     } else {
       setFilteredData([]);
     }
-  }, [data, keyword]);
+  }, [data, keyword, wisata]);
 
-  const dataWisata = async () => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}wisata/list`)
-      .then((response) => {
-        // Handle respons sukses (status kode 200 OK)
-        const data = response.data;
-
-        setWisata(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  // Ambil data wisata lengkap
+  const fetchDataWisata = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}wisata/list`
+      );
+      setWisata(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  // Ambil kategori tag
   const fetchDataKategori = async () => {
     try {
       const response = await axios.get(
@@ -67,6 +73,7 @@ function Kategori() {
     }
   };
 
+  // Ambil data tagpivot
   const fetchDataWisataKategori = async () => {
     try {
       const response = await axios.get(
@@ -85,7 +92,7 @@ function Kategori() {
     slidesToShow: 4,
     swipeToSlide: false,
     afterChange: (index) => {
-      console.log(`Slider Changed to: ${index + 1}`);
+     
     },
   };
 
@@ -95,11 +102,13 @@ function Kategori() {
         Explore Wonosobo
       </div>
       <Slider {...settings}>
-        {kategori.map((item, index) => (
+        {kategori.map((item) => (
           <div
-            key={index}
+            key={item.id || item.nama} // pakai id atau nama jika id tidak ada
             className={`w-2/5 px-4 mb-8 ${
-              queryParam === item.nama ? "text-teal-500 font-bold" : ""
+              queryParam?.toLowerCase() === item.nama.toLowerCase()
+                ? "text-teal-500 font-bold"
+                : ""
             }`}
           >
             <Link href={`/dashboard?kategori=${item.nama}`}>{item.nama}</Link>
@@ -107,50 +116,47 @@ function Kategori() {
         ))}
       </Slider>
       <div className="flex flex-wrap items-center justify-center overflow-hidden capitalize">
-        {filteredData.map((text) => (
-          <Link
-            href={`/wisata/${text.wisata.id}`}
-            key={text.id}
-            className="w-2/5 mx-3 mt-5 bg-center bg-cover h-52 rounded-2xl"
-            style={{
-              backgroundImage: text.wisata.gambar.gambar1
-                ? `url('${process.env.NEXT_PUBLIC_API_URL}upload/${text.wisata.gambar.gambar1}')`
-                : "url('/img/no-image.png", // Mengatur background menjadi none jika gambar tidak tersedia
-            }}
-          >
-            <div className="items-center justify-center w-4/5 mx-auto mt-40 text-center text-black bg-white rounded-lg h-7">
-              <h1 style={{ fontSize: 10 }} className="pt-1 font-bold ">
-                {text.wisata.nama}
-              </h1>
-            </div>
-          </Link>
-        ))}
-      </div>
-      <div>
-        <div
-          className={`flex flex-wrap items-center justify-center overflow-hidden capitalize ${
-            keyword === null ? "" : "hidden"
-          }`}
-        >
-          {wisata.map((text) => (
-            <Link
-              href={`/wisata/${text.id}`}
-              key={text.id}
-              className="w-2/5 mx-3 mt-5 bg-center bg-cover h-52 rounded-2xl"
-              style={{
-                backgroundImage: text.gambar
-                  ? `url('${process.env.NEXT_PUBLIC_API_URL}upload/${text.gambar.gambar1}')`
-                  : "url('/img/no-image.png", // Mengatur background menjadi none jika gambar tidak tersedia
-              }}
-            >
-              <div className="items-center justify-center w-4/5 mx-auto mt-40 text-center text-black bg-white rounded-lg h-7">
-                <h1 style={{ fontSize: 10 }} className="pt-1 font-bold ">
-                  {text.nama}
-                </h1>
-              </div>
-            </Link>
-          ))}
-        </div>
+        {/* Tampilkan data filter jika ada */}
+        {filteredData.length > 0
+          ? filteredData.map((text) =>
+              text.wisata ? (
+                <Link
+                  href={`/wisata/${text.wisata.id}`}
+                  key={text.id}
+                  className="w-2/5 mx-3 mt-5 bg-center bg-cover h-52 rounded-2xl"
+                  style={{
+                    backgroundImage: text.wisata.gambar?.gambar1
+                      ? `url('${process.env.NEXT_PUBLIC_API_URL}upload/${text.wisata.gambar.gambar1}')`
+                      : "url('/img/no-image.png')",
+                  }}
+                >
+                  <div className="items-center justify-center w-4/5 mx-auto mt-40 text-center text-black bg-white rounded-lg h-7">
+                    <h1 style={{ fontSize: 10 }} className="pt-1 font-bold ">
+                      {text.wisata.nama}
+                    </h1>
+                  </div>
+                </Link>
+              ) : null
+            )
+          : // Jika tidak ada filter tampilkan semua wisata
+            wisata.map((text) => (
+              <Link
+                href={`/wisata/${text.id}`}
+                key={text.id}
+                className="w-2/5 mx-3 mt-5 bg-center bg-cover h-52 rounded-2xl"
+                style={{
+                  backgroundImage: text.gambar?.gambar1
+                    ? `url('${process.env.NEXT_PUBLIC_API_URL}upload/${text.gambar.gambar1}')`
+                    : "url('/img/no-image.png')",
+                }}
+              >
+                <div className="items-center justify-center w-4/5 mx-auto mt-40 text-center text-black bg-white rounded-lg h-7">
+                  <h1 style={{ fontSize: 10 }} className="pt-1 font-bold ">
+                    {text.nama}
+                  </h1>
+                </div>
+              </Link>
+            ))}
       </div>
     </div>
   );

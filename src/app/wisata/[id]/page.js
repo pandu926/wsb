@@ -80,7 +80,10 @@ export default function page() {
       <div className="flex w-full mx-5 rounded-2xl ">
         <Image src="/img/maps.svg" width={15} height={15} />
         <h1 className="pl-5 font-extrabold text-gray-500 capitalize">
-          {data.alamat}
+          {data.alamat}{" "}
+          <a className="text-blue-700" href={data.link}>
+            lihat di gmaps
+          </a>
         </h1>
       </div>
       <div className="flex mt-10">
